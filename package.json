@@ -1,0 +1,37 @@
+{
+  "name": "greengui",
+  "version": "1.0.0",
+  "description": "A node app for all the things!",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GreenfinityFarms/green_gui.git"
+  },
+  "keywords": [
+    "iot",
+    "node",
+    "hapi",
+    "graphql",
+    "react"
+  ],
+  "author": "Greenfinity Farms, Daniel Minshew, Alexa Anderson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GreenfinityFarms/green_gui/issues"
+  },
+  "homepage": "https://github.com/GreenfinityFarms/green_gui#readme",
+  "dependencies": {
+    "hapi": "13.4.1",
+    "jasmine": "2.4.1",
+    "joi": "8.4.2",
+    "mongodb": "2.1.18",
+    "mongoose": "4.5.3",
+    "react": "15.2.0",
+    "react-addons-test-utils": "15.2.0",
+    "redux": "3.5.2",
+    "reify": "0.3.6"
+  }
+}
