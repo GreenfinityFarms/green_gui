@@ -2,7 +2,7 @@
   "name": "greengui",
   "version": "1.0.0",
   "description": "A node app for all the things!",
-  "main": "index.js",
+  "main": "server/server.js",
   "scripts": {
     "test": "npm test"
   },
@@ -17,21 +17,25 @@
     "graphql",
     "react"
   ],
-  "author": "Greenfinity Farms, Daniel Minshew, Alexa Anderson",
+  "author": "Greenfinity Farms, Dan Minshew, Alexa Anderson",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/GreenfinityFarms/green_gui/issues"
   },
   "homepage": "https://github.com/GreenfinityFarms/green_gui#readme",
   "dependencies": {
+    "boom": "3.2.2",
     "hapi": "13.4.1",
-    "jasmine": "2.4.1",
     "joi": "8.4.2",
-    "mongodb": "2.1.18",
-    "mongoose": "4.5.3",
+    "lodash": "4.13.1",
+    "mongodb": "^2.2.0",
     "react": "15.2.0",
-    "react-addons-test-utils": "15.2.0",
+    "react-router": "2.5.2",
     "redux": "3.5.2",
     "reify": "0.3.6"
+  },
+  "devDependencies": {
+    "jasmine": "2.4.1",
+    "react-addons-test-utils": "15.2.0"
   }
 }

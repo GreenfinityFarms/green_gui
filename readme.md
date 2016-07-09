@@ -1,2 +1,3 @@
 - `git clone`
 - `npm install`
+- `meteor`
