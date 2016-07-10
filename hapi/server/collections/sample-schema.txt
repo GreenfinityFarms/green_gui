@@ -1,0 +1,14 @@
+== COLLECTIONS ==
+Users (teams?)
+Sensors
+  - type
+  - description
+  - value
+SensorHistory
+  - sensorId
+  - values over time
+Settings
+    | lights
+       - mode
+    | water
+    | timers
