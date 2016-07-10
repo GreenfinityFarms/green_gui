@@ -12,11 +12,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Backlog
 **Meta**
 - Fix README
+
 **Back-end**
 - Write tests
 - Write documentation
 - Develop schema and validation (Joi or Mongoose)
-- Implement use of "internals" per [Hapi specs](https://github.com/hapijs/contrib/blob/master/Style.md#module-globals)   
+- Implement use of "internals" per [Hapi specs](https://github.com/hapijs/contrib/blob/master/Style.md#module-globals)
+
 **Front-end**
 - Structure front-end routes
 - Mock up user interface and interaction
