@@ -43,10 +43,10 @@ as a json object.
 I've been using [HTTPie](https://github.com/jkbrzt/httpie), a Python program :snake:.
 
 Usage:
-- `http PUT http://localhost:1337/sensor/add?type=temperature&&description=72`
+- `http PUT http://localhost:1337/sensor/add type=temp description=72`
 
 You can also use cURL:
-- `curl --data "type=temperature&&description=72" http://localhost:1337/sensor/add`
+- `curl --data "type=temp&&description=72" http://localhost:1337/sensor/add`
 
 NOTE: those commands might not be right.
 
