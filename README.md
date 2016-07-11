@@ -59,6 +59,10 @@ Meteor will attempt to start its own Mongo instance, so we have to make sure it 
 to the external instance that's already running, otherwise you won't have access to any of
 the data from Hapi.
 
+Additionally, we get access to Meteor's rich reactivity model which provides a pub/sub
+interface for keeping client screens up-to-date. `Minimongo` let's use write client-side
+code (`Collection.find({ "name": "Temp" })`) as if it were running on the server, and vice versa.
+
 TODO: connect Meteor to external Mongo instance. Set the `MONGO_URL` environment variable to
 something similar to:
 
