@@ -32,20 +32,34 @@ making this RESTful framework easy to use and highly extensible. Take a look at 
 
 Our HAPI code is contained is a separate application directory from our client-side app.
 To run the server, `cd hapi` and `node server/server` -- this will initialize the server
-and listen for requesting on port `1337`.
+and listen to requests over port `1337`.
 
 You should be able to interface via http like so,
 - `http://localhost:1337/sensor/all` - should dump all of the sensor data from the database
 as a json object.
 
-Further pertinent information can be found in the [readme](https://github.com/GreenfinityFarms/green_gui/tree/master/hapi/server/readme.md).
+##### HTTP Clients
+
+I've been using [HTTPie](https://github.com/jkbrzt/httpie), a Python program :snake:.
+
+Usage:
+- `http PUT http://localhost:1337/sensor/add?type=temperature&&description=72`
+
+You can also use cURL:
+- `curl --data "type=temperature&&description=72" http://localhost:1337/sensor/add`
+
+NOTE: those commands might not be right.
+
+Further pertinent information can be found in the
+[readme](https://github.com/GreenfinityFarms/green_gui/tree/master/hapi/server/readme.md).
 
 #### Connecting Meteor
 
 The 'UI' part of our app is to be built with Meteor, this allows us a nice developer
 experience with minimal build-step blunderings and toiling over the how and whens
-of code preprocessing (since we're using .jsx and .scss files) that other options
-would require. We don't even need Babel. (but still <3 Babel)
+of code preprocessing (since we're using .jsx and .scss files). Other bundler options
+like [Webpack](https://webpack.github.io/), nice as they may be, would require significantly
+more set-up. With Meteor, we don't even need Babel. (but still <3 Babel)
 
 Meteor is now a full part of the greater Node/NPM ecosystem, so you can use any module
 from NPM within your Meteor app. Since this is the case, and since both Meteor and the
