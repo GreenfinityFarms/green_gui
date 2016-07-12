@@ -25,9 +25,9 @@ const connect = (callback) => {
 // PUT @collection | Object
 let addSensorData = function (sensor, callback) {
   connect(function (db) {
-    let collection = db.collection(CollectionKey)
+    let coll = db.collection(CollectionKey)
 
-    collection.insert(sensor, function (err, result) {
+    coll.insert(sensor, function (err, result) {
       if (err) {
         throw err
       }
@@ -37,15 +37,16 @@ let addSensorData = function (sensor, callback) {
   })
 }
 
-// let updateSensorData = function (id, callback) {
+// TODO: let updateSensorData = function (id, callback) {
 
 // }
 
 // Find a single doc
 let getOneSensorData = function (id, callback) {
   connect((db) => {
-    let result = db.collection(CollectionKey).find({'_id': id})
-    result.toArray((err, sensor) => {
+    let coll = db.collection(CollectionKey)
+
+    coll.find({'_id': id}).toArray((err, sensor) => {
       if (err) {
         throw err
       }
@@ -59,8 +60,9 @@ let getOneSensorData = function (id, callback) {
 // Find all documents in @collection
 let getAllSensorData = function (callback) {
   connect((db) => {
-    let result = db.collection(CollectionKey).find({})
-    result.toArray((err, sensors) => {
+    let coll = db.collection(CollectionKey)
+
+    coll.find({}).toArray((err, sensors) => {
       if (err) {
         throw err
       }
