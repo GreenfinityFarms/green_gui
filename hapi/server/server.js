@@ -1,7 +1,5 @@
+"use strict"
 const Hapi = require('hapi')
-// const Joi = require('joi')
-// import Hapi from 'hapi'
-// import SensorsCollection from '/imports/api/sensors/sensors'
 
 const Sensors = require('./collections/sensors')
 
