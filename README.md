@@ -13,7 +13,7 @@ Until then, we must run the local mongos.
 - Install Mongo ([instructions](https://docs.mongodb.com/manual/installation/#tutorials))
 - note: I recommend using the version management tool `m` ([found here](https://github.com/aheckmann/m))
 - Either, `mongod` or `m use 3.2.0` (NOTE: may require preceding `sudo`)
-- `mongo` or `mongo` to access the shell
+- `<sudo> mongo` to access the shell
 - Mongo should be running on its default port (27017) for now.
 
 ##### Simple shell instructions:
@@ -30,13 +30,13 @@ the Mongo database. The Hapi community is very active and a lot of love has gone
 making this RESTful framework easy to use and highly extensible. Take a look at their
 [github repo](https://github.com/hapijs/hapi) for more info. They even offer a mentoring program.
 
-Our HAPI code is contained is a separate application directory from our client-side app.
-To run the server, `cd hapi` and `node server/server` -- this will initialize the server
+Our HAPI code is kept in the `/hapi` directory and is a separate service from our client-side app.
+To run the server, `cd hapi` and `node server/server` -- this will initialize hapi
 and listen to requests over port `1337`.
 
 You should be able to interface via http like so,
-- `http://localhost:1337/sensor/all` - should dump all of the sensor data from the database
-as a json object.
+- [http://localhost:1337/sensor/all](http://localhost:1337/sensor/all) - should dump all
+of the sensor data from the database as a json object.
 
 ##### HTTP Clients
 
@@ -51,7 +51,7 @@ You can also use cURL:
 NOTE: those commands might not be right.
 
 Further pertinent information can be found in the
-[readme](https://github.com/GreenfinityFarms/green_gui/tree/master/hapi/server/readme.md).
+[server readme](https://github.com/GreenfinityFarms/green_gui/tree/master/hapi/server/readme.md).
 
 #### Connecting Meteor
 
@@ -67,7 +67,9 @@ HAPI server will more than likely be running in separate environments, both of t
 will have their own `package.json` and `node_modules` folder (even though it's highly likely
 that they'll be sharing many of the same libraries).
 
-To start the app, simply [have Meteor installed](https://www.meteor.com/install) and `cd meteor && meteor`.
+To start the app, simply [have Meteor installed](https://www.meteor.com/install) then `cd /meteor && meteor`.
+
+If this is the first time it's ran, run `npm install` prior to the `meteor` command.
 
 Meteor will attempt to start its own Mongo instance, so we have to make sure it connects
 to the external instance that's already running, otherwise you won't have access to any of
