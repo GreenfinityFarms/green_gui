@@ -1,7 +1,11 @@
 {
   "name": "greengui",
-  "version": "1.0.0",
+  "version": "0.0.1",
+  "private": true,
   "description": "A node app for all the things!",
+  "engines": {
+    "node": "6.2.1"
+  },
   "main": "server/server.js",
   "scripts": {
     "test": "npm test"
