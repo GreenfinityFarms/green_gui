@@ -14,20 +14,20 @@ function newServer (port) {
   let getAllSensors = {
     path: '/sensor/all',
     method: 'GET',
-    handler: function (request, reply) {
+    handler:  function (request, reply) {
       Sensors.find((mongoResult) => {
-        let resultArray = mongoResult.map(doc => {
-          return {
-            id: doc._id,
-            temp: doc.temp,
-            type: doc.type,
-            description: doc.description
-          }
-        })
+        // let resultArray = mongoResult.map(doc => {
+        //   return {
+        //     id: doc._id,
+        //     temp: doc.temp,
+        //     type: doc.type,
+        //     description: doc.description
+        //   }
+        // })
         reply({
-          sensors: resultArray
+          sensors: mongoResult
         })
-        console.log(resultArray)
+        console.log(mongoResult)
       })
     }
   }

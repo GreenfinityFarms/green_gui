@@ -11,12 +11,17 @@ describe("getAllSensors", () => {
     }
 
     server.inject(options, function(response) {
+      let result = response.result
+      // Expect to have a successful response
       expect(response.statusCode).toBe(200)
-      expect(_.has(response.payload, "sensors")).toBeTruthy
-      // expect # of ob in pay load to be # of ob in db
+      // Expect to be returning sensor data
+      expect(_.has(result, "sensors")).toBeTruthy
 
-      console.log(`payload: ${response}`)
-      done()
+      // Expect objects returned to be same objects as in database
+      Sensors.find((mongoResult) => {
+        expect(mongoResult).toEqual(result.sensors)
+        done()
+      })
     })
   })
 })
