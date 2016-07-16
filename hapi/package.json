@@ -8,7 +8,8 @@
   },
   "main": "server/server.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

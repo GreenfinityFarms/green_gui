@@ -1,6 +1,7 @@
 'use strict'
 
 const MongoClient = require('mongodb').MongoClient
+const ObjectID = require('mongodb').ObjectID
 // const Sensors = new Mongo.Collection(CollectionKey)
 // const ObjectId = require('mongodb').ObjectID
 
@@ -43,10 +44,11 @@ let addSensorData = function (sensor, callback) {
 
 // Find a single doc
 let getOneSensorData = function (id, callback) {
+  let _id = new ObjectID(id)
   connect((db) => {
     let coll = db.collection(CollectionKey)
 
-    coll.find({'_id': id}).toArray((err, sensor) => {
+    coll.find({ '_id': _id }).toArray((err, sensor) => {
       if (err) {
         throw err
       }
@@ -66,6 +68,7 @@ let getAllSensorData = function (callback) {
       if (err) {
         throw err
       }
+      // TODO: Add actually logging <probably w/ Good, Good-Console>
       console.log(`got: ${sensors}`)
       db.close()
       callback(sensors)
@@ -75,6 +78,6 @@ let getAllSensorData = function (callback) {
 
 module.exports = {
   insert: addSensorData,
-  findOne: getOneSensorData,
+  // findOne: getOneSensorData,
   find: getAllSensorData
 }
