@@ -1,6 +1,6 @@
 {
   "name": "greengui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "A node app for all the things!",
   "engines": {
@@ -32,6 +32,7 @@
     "boom": "3.2.2",
     "hapi": "13.4.1",
     "joi": "8.4.2",
+    "joi-objectid": "2.0.0",
     "lodash": "4.13.1",
     "mongodb": "^2.2.0",
     "react": "15.2.0",

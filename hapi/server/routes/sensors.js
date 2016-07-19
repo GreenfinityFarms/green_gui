@@ -1,9 +1,13 @@
+'use strict'
+const Joi = require('joi')
+const Boom = require('boom')
 const Sensors = require('../collections/sensors')
+const schema = require('../collections/sensor_schema')
 
 let getAllSensors = {
   path: '/sensor/all',
   method: 'GET',
-  handler:  function (request, reply) {
+  handler: function (request, reply) {
     Sensors.find((mongoResult) => {
       // let resultArray = mongoResult.map(doc => {
       //   return {
@@ -13,10 +17,10 @@ let getAllSensors = {
       //     description: doc.description
       //   }
       // })
+
       reply({
         sensors: mongoResult
       })
-      console.log(mongoResult)
     })
   }
 }
@@ -24,7 +28,7 @@ let getAllSensors = {
 let getOneSensor = {
   path: '/sensor/{id}',
   method: 'GET',
-  handler:  function (request, reply) {
+  handler: function (request, reply) {
     Sensors.findOne(request.payload.id, mongoResult => {
       // let resultArray = mongoResult.map(doc => {
       //   return {
@@ -51,9 +55,15 @@ let addSensor = {
       type: request.payload.type,
       description: request.payload.description
     }
-    // try/catch
-    Sensors.insert(sensorData, function (mongoResult) {
-      reply({partyOn: true})
+
+    Joi.validate(sensorData, schema, function (err, success) {
+      if (err) {
+        reply(Boom.badRequest(`bad request: ${err}`))
+      } else {
+        Sensors.insert(sensorData, function (mongoResult) {
+          reply({partyOn: true})
+        })
+      }
     })
   }
 }

@@ -1,10 +1,9 @@
-"use strict"
+'use strict'
 const Hapi = require('hapi')
-const _    = require('lodash')
+const _ = require('lodash')
 const sensorRoutes = require('./routes/sensors')
 
 function newServer (port) {
-
   const server = new Hapi.Server()
 
   server.connection({

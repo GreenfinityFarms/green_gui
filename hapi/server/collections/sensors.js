@@ -1,11 +1,8 @@
 'use strict'
 
+const CollectionKey = 'sensors'
 const MongoClient = require('mongodb').MongoClient
 const ObjectID = require('mongodb').ObjectID
-// const Sensors = new Mongo.Collection(CollectionKey)
-// const ObjectId = require('mongodb').ObjectID
-
-const CollectionKey = 'sensors'
 
 let url = 'mongodb://localhost:27017/' + CollectionKey
 
@@ -69,7 +66,6 @@ let getAllSensorData = function (callback) {
         throw err
       }
       // TODO: Add actually logging <probably w/ Good, Good-Console>
-      console.log(`got: ${sensors}`)
       db.close()
       callback(sensors)
     })
@@ -78,6 +74,6 @@ let getAllSensorData = function (callback) {
 
 module.exports = {
   insert: addSensorData,
-  // findOne: getOneSensorData,
+  findOne: getOneSensorData,
   find: getAllSensorData
 }
