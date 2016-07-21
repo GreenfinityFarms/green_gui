@@ -45,11 +45,18 @@ let getOneSensorData = function (id, callback) {
   connect((db) => {
     let coll = db.collection(CollectionKey)
 
-    coll.find({ '_id': _id }).toArray((err, sensor) => {
-      if (err) {
-        throw err
-      }
-      console.log(`got: ${sensor}`)
+    // REMOVED, no need to call toArray
+    // coll.find({ '_id': _id }).toArray((err, sensor) => {
+    //   if (err) {
+    //     throw err
+    //   }
+    //   console.log(`got: ${sensor}`)
+    //   db.close()
+    //   callback(sensor)
+    // })
+
+    coll.findOne({ '_id': _id }, (err, sensor) => {
+      if (err) throw err
       db.close()
       callback(sensor)
     })
@@ -74,6 +81,7 @@ let getAllSensorData = function (callback) {
 
 module.exports = {
   insert: addSensorData,
-  findOne: getOneSensorData,
-  find: getAllSensorData
+  findOneSensor: getOneSensorData,
+  find: getAllSensorData,
+  connect: connect
 }

@@ -29,7 +29,8 @@ let getOneSensor = {
   path: '/sensor/{id}',
   method: 'GET',
   handler: function (request, reply) {
-    Sensors.findOne(request.payload.id, mongoResult => {
+    const id = encodeURIComponent(request.params.id)
+    Sensors.findOneSensor(id, (mongoResult) => {
       // let resultArray = mongoResult.map(doc => {
       //   return {
       //     id: doc._id,
