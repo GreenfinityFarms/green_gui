@@ -21,3 +21,10 @@ rather than just `nvm use stable` or `nvm use 6`
 
 I messed up an npm config at some point when configuring python, I'll update this
 doc once I have it sorted out.
+
+- - -
+
+### Changes for getOneSensor test
+added `connect` function to database interface. Not a secure solution.
+
+Personally, I (Alexa) still can't find by simple id numberin the db, e.g. `'_id': 1`
