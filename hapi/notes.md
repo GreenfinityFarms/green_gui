@@ -27,4 +27,8 @@ doc once I have it sorted out.
 ### Changes for getOneSensor test
 added `connect` function to database interface. Not a secure solution.
 
-Personally, I (Alexa) still can't find by simple id numberin the db, e.g. `'_id': 1`
+Personally, I (Alexa) still can't find by simple id number in the db, e.g. `'_id': 1`
+
+### Changes to Joi schema
+Type is required
+`Object().keys` works for sure
