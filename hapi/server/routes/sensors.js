@@ -42,7 +42,7 @@ let getOneSensor = {
       reply({
         sensor: mongoResult
       })
-      console.log(mongoResult)
+      // console.log(mongoResult)
     })
   }
 }

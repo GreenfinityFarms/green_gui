@@ -58,3 +58,53 @@ describe('getOneSensor', () => {
     })
   })
 })
+
+describe('addSensorData', () => {
+  it('adds a valid object to the database', done => {
+    const newSensor = {
+      type: 'Test Sensor',
+      description: 'This is a sensor created for test purposes'
+    }
+    const options = {
+      method: 'PUT',
+      url: '/sensor/add',
+      payload: newSensor
+    }
+    Sensors.find((mongoBeforeResult) => {
+      // Number of sensors in db before insert
+      const sensorCountBefore = mongoBeforeResult.length
+      server.inject(options, function(response) {
+        Sensors.find((mongoAfterResult) => {
+          // Number of sensors in db after insert
+          const sensorCountAfter = mongoAfterResult.length
+          expect(sensorCountAfter).toEqual(sensorCountBefore + 1)
+          done()
+        })
+      })
+    })
+  })
+
+  it('does not add an invalid object', done => {
+    const badSensor = {
+      noType: 'this should not be added'
+    }
+    const options = {
+      method: 'PUT',
+      url: '/sensor/add',
+      payload: badSensor
+    }
+    Sensors.find((mongoBeforeResult) => {
+      // Number of sensors in db before insert
+      const sensorCountBefore = mongoBeforeResult.length
+      server.inject(options, function(response) {
+        Sensors.find((mongoAfterResult) => {
+          // Number of sensors in db after insert
+          const sensorCountAfter = mongoAfterResult.length
+          // Expect no change
+          expect(sensorCountAfter).toEqual(sensorCountBefore)
+          done()
+        })
+      })
+    })
+  })
+})
