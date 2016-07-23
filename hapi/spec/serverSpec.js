@@ -12,8 +12,8 @@ const Sensors = require('../server/collections/sensors')
  *
 */
 
-describe('getAllSensorsata', () => {
-  it('responds with object of all sensors', (done) => {
+describe('getAllSensorData', () => {
+  it('responds with object of all sensors', done => {
     let options = {
       method: 'GET',
       url: '/sensor/all'

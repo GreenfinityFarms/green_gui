@@ -69,8 +69,21 @@ let addSensor = {
   }
 }
 
+// TODO: Normalize routes
+let deleteSensor = {
+  path: '/sensor/{id}',
+  method: 'DELETE',
+  handler: function (request, reply) {
+    const id = encodeURIComponent(request.params.id)
+    Sensors.delete(id, function (mongoResult) {
+      reply({sensorDeleted: `${mongoResult}`})
+    })
+  }
+}
+
 module.exports = {
   getAllSensors: getAllSensors,
   getOneSensor: getOneSensor,
-  addSensor: addSensor
+  addSensor: addSensor,
+  deleteSensor: deleteSensor
 }

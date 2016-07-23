@@ -56,7 +56,9 @@ let getOneSensorData = function (id, callback) {
     // })
 
     coll.findOne({ '_id': _id }, (err, sensor) => {
-      if (err) throw err
+      if (err) {
+        throw err
+      }
       db.close()
       callback(sensor)
     })
@@ -79,9 +81,26 @@ let getAllSensorData = function (callback) {
   })
 }
 
+// Deletes a sensor from the db
+let deleteSensorData = function (id, callback) {
+  let _id = new ObjectID(id)
+  connect((db) => {
+    let coll = db.collection(CollectionKey)
+
+    coll.findOneAndDelete({'_id': _id}, function (err, sensor) {
+      if (err) {
+        throw err
+      }
+      db.close()
+      callback(sensor)
+    })
+  })
+}
+
 module.exports = {
   insert: addSensorData,
   findOneSensor: getOneSensorData,
   find: getAllSensorData,
+  delete: deleteSensorData,
   connect: connect
 }
