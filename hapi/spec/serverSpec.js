@@ -12,7 +12,7 @@ const Sensors = require('../server/collections/sensors')
  *
 */
 
-describe('getAllSensorData', () => {
+describe('getAllSensors', () => {
   it('responds with object of all sensors', done => {
     let options = {
       method: 'GET',
@@ -39,6 +39,7 @@ describe('getOneSensor', () => {
   it('responds with object containing one sensor', done => {
     Sensors.connect((db) => {
       let collection = db.collection('sensors')
+      // Get a comparison sensor straight from db
       collection.findOne({}, (err, testSensor) => {
         if (err) {
           throw err
@@ -48,6 +49,7 @@ describe('getOneSensor', () => {
           method: 'GET',
           url: `/sensor/${testId}`
         }
+        // Send request to test if we get the same sensor
         server.inject(options, function (response) {
           let result = response.result
           expect(_.has(result, 'sensor')).toBeTruthy
@@ -59,7 +61,7 @@ describe('getOneSensor', () => {
   })
 })
 
-describe('addSensorData', () => {
+describe('addSensor', () => {
   it('adds a valid object to the database', done => {
     const newSensor = {
       type: 'Test Sensor',
@@ -103,6 +105,38 @@ describe('addSensorData', () => {
           // Expect no change
           expect(sensorCountAfter).toEqual(sensorCountBefore)
           done()
+        })
+      })
+    })
+  })
+})
+describe('deleteSensor', () => {
+  it('deletes the specified sensor', done => {
+    Sensors.connect((db) => {
+      let collection = db.collection('sensors')
+      // Get a comparison sensor straight from db
+      collection.findOne({type:'Test Sensor'}, (err, testSensor) => {
+        if (err) {
+          throw err
+        }
+        const testId = testSensor._id.toString()
+        const options = {
+          method: 'DELETE',
+          url: `/sensor/${testId}`,
+        }
+        Sensors.find((sensorsBeforeDeletion) => {
+          // Number of sensors before deletion
+          const sensorCountBefore = sensorsBeforeDeletion.length
+          server.inject(options, (response) => {
+            Sensors.find((sensorsAfterDeletion) => {
+              const sensorCountAfter = sensorsAfterDeletion.length
+              const reply = response.result
+
+              expect(sensorCountAfter).toEqual(sensorCountBefore - 1)
+              expect(_.has(reply, 'sensorDeleted')).toBeTruthy
+              done()
+            })
+          })
         })
       })
     })
