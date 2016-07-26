@@ -35,9 +35,25 @@ let addSensorData = function (sensor, callback) {
   })
 }
 
-// TODO: let updateSensorData = function (id, callback) {
-
-// }
+let updateSensorData = function (id, query, callback) {
+  let _id = new ObjectID(id)
+  connect(function (db) {
+    let coll = db.collection(CollectionKey)
+    // update the db like normal
+    coll.update({'_id': _id}, {$set: query}, (err, result) => { // returns a WriteResult, not sensor
+      if (err) {
+        throw err
+      }
+    })
+    coll.findOne({'_id': _id}, (err, sensor) => {
+      if (err) {
+        throw err
+      }
+      db.close()
+      callback(sensor)
+    })
+  })
+}
 
 // Find a single doc
 let getOneSensorData = function (id, callback) {
@@ -102,5 +118,6 @@ module.exports = {
   findOneSensor: getOneSensorData,
   find: getAllSensorData,
   delete: deleteSensorData,
-  connect: connect
+  connect: connect,
+  update: updateSensorData
 }

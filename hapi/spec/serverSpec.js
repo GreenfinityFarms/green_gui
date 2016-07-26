@@ -110,6 +110,7 @@ describe('addSensor', () => {
     })
   })
 })
+
 describe('deleteSensor', () => {
   it('deletes the specified sensor', done => {
     Sensors.connect((db) => {
@@ -129,14 +130,52 @@ describe('deleteSensor', () => {
           const sensorCountBefore = sensorsBeforeDeletion.length
           server.inject(options, (response) => {
             Sensors.find((sensorsAfterDeletion) => {
+              // Number of sensors after deletion
               const sensorCountAfter = sensorsAfterDeletion.length
               const reply = response.result
-
+            
               expect(sensorCountAfter).toEqual(sensorCountBefore - 1)
               expect(_.has(reply, 'sensorDeleted')).toBeTruthy
               done()
             })
           })
+        })
+      })
+    })
+  })
+})
+
+describe('updateSensor', () => {
+  it('updates the sensor of a given id', done => {
+    Sensors.connect((db) => {
+      let collection = db.collection('sensors')
+      // Get a comparison sensor straight from db
+      collection.findOne({type:'Test Sensor'}, (err, testSensor) => {
+        if (err) {
+          throw err
+        }
+        const testId = testSensor._id.toString()
+        const updateValues = {
+          description: 'this is the new description'
+        }
+        const options = {
+          method: 'PUT',
+          url: `/sensor/${testId}`,
+          payload: updateValues
+        }
+        
+        server.inject(options, response => {
+          const reply = response.result
+          const updatedSensor = reply['updatedSensor']
+
+          expect(updatedSensor).toBeDefined()
+          expect(updatedSensor).not.toEqual(testSensor)
+          // expect payload criteria to be the difference
+          for (key in options.payload) {
+            expect(updatedSensor[key]).toBeDefined()
+            expect(updatedSensor[key]).not.toEqual(testSensor[key])
+          }
+          done()
         })
       })
     })

@@ -81,9 +81,21 @@ let deleteSensor = {
   }
 }
 
+let updateSensor = {
+  path: '/sensor/{id}',
+  method: ['PUT', 'PATCH'], // Add test for PATCH
+  handler: function (request, reply) {
+    const id = encodeURIComponent(request.params.id)
+    Sensors.update(id, request.payload, function (mongoResult) {
+      reply({updatedSensor: mongoResult})
+    })
+  }
+}
+
 module.exports = {
   getAllSensors: getAllSensors,
   getOneSensor: getOneSensor,
   addSensor: addSensor,
-  deleteSensor: deleteSensor
+  deleteSensor: deleteSensor,
+  updateSensor: updateSensor
 }
