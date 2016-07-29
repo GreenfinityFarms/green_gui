@@ -75,7 +75,7 @@ describe('addSensor', () => {
     Sensors.find((mongoBeforeResult) => {
       // Number of sensors in db before insert
       const sensorCountBefore = mongoBeforeResult.length
-      server.inject(options, function(response) {
+      server.inject(options, function (response) {
         Sensors.find((mongoAfterResult) => {
           // Number of sensors in db after insert
           const sensorCountAfter = mongoAfterResult.length
@@ -98,7 +98,7 @@ describe('addSensor', () => {
     Sensors.find((mongoBeforeResult) => {
       // Number of sensors in db before insert
       const sensorCountBefore = mongoBeforeResult.length
-      server.inject(options, function(response) {
+      server.inject(options, function (response) {
         Sensors.find((mongoAfterResult) => {
           // Number of sensors in db after insert
           const sensorCountAfter = mongoAfterResult.length
@@ -116,14 +116,14 @@ describe('deleteSensor', () => {
     Sensors.connect((db) => {
       let collection = db.collection('sensors')
       // Get a comparison sensor straight from db
-      collection.findOne({type:'Test Sensor'}, (err, testSensor) => {
+      collection.findOne({type: 'Test Sensor'}, (err, testSensor) => {
         if (err) {
           throw err
         }
         const testId = testSensor._id.toString()
         const options = {
           method: 'DELETE',
-          url: `/sensor/${testId}`,
+          url: `/sensor/${testId}`
         }
         Sensors.find((sensorsBeforeDeletion) => {
           // Number of sensors before deletion
@@ -133,7 +133,7 @@ describe('deleteSensor', () => {
               // Number of sensors after deletion
               const sensorCountAfter = sensorsAfterDeletion.length
               const reply = response.result
-            
+
               expect(sensorCountAfter).toEqual(sensorCountBefore - 1)
               expect(_.has(reply, 'sensorDeleted')).toBeTruthy
               done()
@@ -146,11 +146,11 @@ describe('deleteSensor', () => {
 })
 
 describe('updateSensor', () => {
-  it('updates the sensor of a given id', done => {
+  it('updates the sensor in response to PUT', done => {
     Sensors.connect((db) => {
       let collection = db.collection('sensors')
       // Get a comparison sensor straight from db
-      collection.findOne({type:'Test Sensor'}, (err, testSensor) => {
+      collection.findOne({type: 'Test Sensor'}, (err, testSensor) => {
         if (err) {
           throw err
         }
@@ -163,7 +163,7 @@ describe('updateSensor', () => {
           url: `/sensor/${testId}`,
           payload: updateValues
         }
-        
+
         server.inject(options, response => {
           const reply = response.result
           const updatedSensor = reply['updatedSensor']
@@ -171,7 +171,41 @@ describe('updateSensor', () => {
           expect(updatedSensor).toBeDefined()
           expect(updatedSensor).not.toEqual(testSensor)
           // expect payload criteria to be the difference
-          for (key in options.payload) {
+          for (let key in options.payload) {
+            expect(updatedSensor[key]).toBeDefined()
+            expect(updatedSensor[key]).not.toEqual(testSensor[key])
+          }
+          done()
+        })
+      })
+    })
+  }),
+  it('updates the sensor in response to PATCH', done => {
+    Sensors.connect((db) => {
+      let collection = db.collection('sensors')
+      // Get a comparison sensor straight from db
+      collection.findOne({description: 'this is the new description'}, (err, testSensor) => {
+        if (err) {
+          throw err
+        }
+        const testId = testSensor._id.toString()
+        const updateValues = {
+          description: 'this is an even newer description'
+        }
+        const options = {
+          method: 'PATCH',
+          url: `/sensor/${testId}`,
+          payload: updateValues
+        }
+
+        server.inject(options, response => {
+          const reply = response.result
+          const updatedSensor = reply['updatedSensor']
+
+          expect(updatedSensor).toBeDefined()
+          expect(updatedSensor).not.toEqual(testSensor)
+          // expect payload criteria to be the difference
+          for (let key in options.payload) {
             expect(updatedSensor[key]).toBeDefined()
             expect(updatedSensor[key]).not.toEqual(testSensor[key])
           }
