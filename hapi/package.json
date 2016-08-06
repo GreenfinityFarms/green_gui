@@ -38,7 +38,8 @@
     "react": "15.2.0",
     "react-router": "2.5.2",
     "redux": "3.5.2",
-    "reify": "0.3.6"
+    "reify": "0.3.6",
+    "bcrypt": "~0.8.7"
   },
   "devDependencies": {
     "jasmine": "2.4.1",
