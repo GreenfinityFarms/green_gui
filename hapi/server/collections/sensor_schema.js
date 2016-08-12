@@ -3,7 +3,9 @@ Joi.objectId = require('joi-objectid')(Joi)
 
 // Object.keys ?
 module.exports = Joi.object().keys({
-  _id: Joi.objectId().optional(),
-  type: Joi.string().required(),
-  description: Joi.any().optional()
+  id: Joi.objectId().optional(),
+  type: Joi.string().optional(),
+  high: Joi.number().optional(),
+  low: Joi.number().optional(),
+  description: Joi.string().optional()
 })

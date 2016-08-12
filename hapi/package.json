@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/GreenfinityFarms/green_gui#readme",
   "dependencies": {
+    "bcrypt": "0.8.7",
     "boom": "3.2.2",
     "hapi": "13.4.1",
     "joi": "8.4.2",
@@ -38,8 +39,7 @@
     "react": "15.2.0",
     "react-router": "2.5.2",
     "redux": "3.5.2",
-    "reify": "0.3.6",
-    "bcrypt": "~0.8.7"
+    "reify": "0.3.6"
   },
   "devDependencies": {
     "jasmine": "2.4.1",
